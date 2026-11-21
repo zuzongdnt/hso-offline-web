@@ -6,21 +6,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  actions: read
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.pages.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -29,21 +23,20 @@ jobs:
       - run: npm install --global pnpm@12.8.1
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: dist
-      - name: Wait for Pages artifact metadata
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          for attempt in {1..15}; do
-            if gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" \
-                --jq '.artifacts[] | select(.name == "github-pages" and (.expired | not)) | .id' | grep -q .; then
-              exit 0
-            fi
-            sleep 3
-          done
-          echo "::error::The Pages artifact is missing from the Actions API"
-          exit 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    steps:
       - id: pages
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5.0.1
