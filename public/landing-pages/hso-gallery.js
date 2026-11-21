@@ -1,7 +1,7 @@
 const gallery = document.querySelector('.hso-gallery');
-const slides = [...document.querySelectorAll('.shot[data-gallery]')];
 const preview = gallery.querySelector('img');
 const caption = gallery.querySelector('p');
+let slides = [];
 let current = 0;
 
 function show(index) {
@@ -12,12 +12,17 @@ function show(index) {
   caption.textContent = `${current + 1} / ${slides.length} · ${preview.alt}`;
 }
 
-document.querySelector('.featured').addEventListener('click', (event) => {
+document.addEventListener('click', (event) => {
   const link = event.target.closest('[data-gallery]');
   if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
+  const group = link.closest('[data-gallery-group]');
+  if (!group) return;
+
   event.preventDefault();
-  show(slides.indexOf(link.closest('.card').querySelector('.shot')));
+  slides = [...group.querySelectorAll('.shot[data-gallery]')];
+  const shot = link.matches('.shot') ? link : link.closest('.card').querySelector('.shot');
+  show(slides.indexOf(shot));
   gallery.showModal();
 });
 
