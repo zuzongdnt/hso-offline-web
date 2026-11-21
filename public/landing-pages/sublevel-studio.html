@@ -605,6 +605,15 @@ body.machine #topnav,body.machine #layout{display:none}
     </div>
   </div>
   <button class="hso-exit hso-button hso-secondary" type="button" hidden>Về sảnh</button>
+  <div class="hso-touch-controls" data-controls="tv" hidden>
+    <button class="hso-button hso-secondary" type="button" data-tv="-1">Ảnh trước</button>
+    <button class="hso-button hso-secondary" type="button" data-tv="1">Ảnh sau</button>
+  </div>
+  <div class="hso-touch-controls" data-controls="arcade" hidden>
+    <button class="hso-button hso-secondary" type="button" data-key="left">Trái</button>
+    <button class="hso-button" type="button" data-key="fire">Bắn</button>
+    <button class="hso-button hso-secondary" type="button" data-key="right">Phải</button>
+  </div>
 </header>
 
 <nav id="topnav" class="f-nav" aria-label="Điều hướng chính">
@@ -1220,12 +1229,12 @@ const softTex = canvasTex(256, 256, (g, w, h) => {
 });
 const neonTex = canvasTex(2048, 512, (g, w, h) => {
   g.clearRect(0, 0, w, h);
-  g.font = '700 300px "Geist", Arial, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = '700 260px "Geist", Arial, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
   g.lineJoin = 'round'; g.lineCap = 'round';
   g.shadowColor = 'rgba(255,255,255,0.95)'; g.shadowBlur = 60;
-  g.strokeStyle = 'rgba(255,255,255,0.6)'; g.lineWidth = 12; g.strokeText('sublevel.', w / 2, h / 2 + 8);
-  g.shadowBlur = 0; g.strokeStyle = '#ffffff'; g.lineWidth = 5; g.strokeText('sublevel.', w / 2, h / 2 + 8);
-  g.fillStyle = 'rgba(255,255,255,0.12)'; g.fillText('sublevel.', w / 2, h / 2 + 8);
+  g.strokeStyle = 'rgba(255,255,255,0.6)'; g.lineWidth = 12; g.strokeText('hso.offline', w / 2, h / 2 + 8);
+  g.shadowBlur = 0; g.strokeStyle = '#ffffff'; g.lineWidth = 5; g.strokeText('hso.offline', w / 2, h / 2 + 8);
+  g.fillStyle = 'rgba(255,255,255,0.12)'; g.fillText('hso.offline', w / 2, h / 2 + 8);
 });
 const marqueeTex = canvasTex(1024, 256, (g, w, h) => { g.fillStyle = '#0c0504'; g.fillRect(0, 0, w, h); });
 function drawMarquee(t) {
@@ -2179,6 +2188,19 @@ const HINTS = { home: 'Chọn máy arcade, rổ hoặc màn hình CRT', arcade: 
 const tvcap = document.getElementById('tvcap');
 const sceneButtons = document.querySelector('.hso-scenes');
 const exitScene = document.querySelector('.hso-exit');
+const touchControls = document.querySelectorAll('.hso-touch-controls');
+for (const button of document.querySelectorAll('[data-tv]')) {
+  button.addEventListener('click', () => showTV(state.tvIndex + Number(button.dataset.tv)));
+}
+for (const button of document.querySelectorAll('[data-key]')) {
+  const key = button.dataset.key;
+  button.addEventListener('pointerdown', (event) => {
+    button.setPointerCapture(event.pointerId);
+    if (key === 'fire' && !game.running) gameStart();
+    game.keys[key] = true;
+  });
+  button.addEventListener('lostpointercapture', () => { game.keys[key] = false; });
+}
 sceneButtons.hidden = false;
 sceneButtons.addEventListener('click', (event) => {
   const mode = event.target.closest('button')?.dataset.scene;
@@ -2208,6 +2230,7 @@ function setMode(m, arg) {
   canvas.style.cursor = m === 'home' ? '' : (m === 'hoop' ? 'grab' : 'default');
   canvas.classList.toggle('mode', m !== 'home');
   exitScene.hidden = m === 'home';
+  touchControls.forEach((controls) => { controls.hidden = controls.dataset.controls !== m; });
   if (m === 'tv') showTV(arg === undefined ? state.tvIndex : arg); else tvcap.hidden = true;
 }
 

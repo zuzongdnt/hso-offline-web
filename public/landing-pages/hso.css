@@ -12,6 +12,15 @@
   scroll-margin-top: 76px;
 }
 
+#lab {
+  position: absolute;
+  top: 0;
+}
+
+#canvas-container {
+  background: #080808 url("../game/lang-soi-trang.png") center / cover no-repeat;
+}
+
 .hso-lobby {
   position: absolute;
   inset: 0;
@@ -116,6 +125,10 @@ body.machine .hso-lobby {
   right: var(--gutter);
 }
 
+.hso-touch-controls {
+  display: none;
+}
+
 .logos .hso-downloads {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -217,6 +230,22 @@ footer .social .hso-source {
   .logos .hso-downloads { grid-template-columns: 1fr; }
   .hso-tile { gap: 10px; }
   .hso-gallery-controls p { order: -1; flex-basis: 100%; }
+}
+
+@media (pointer: coarse) {
+  #gl:not(.mode) { touch-action: pan-y; }
+  #hint.show { display: none; }
+  .hso-touch-controls:not([hidden]) {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    display: flex;
+    gap: 6px;
+    width: max-content;
+    max-width: calc(100% - 24px);
+    transform: translateX(-50%);
+    touch-action: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
