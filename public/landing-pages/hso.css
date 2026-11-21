@@ -17,13 +17,33 @@
   top: 0;
 }
 
-#canvas-container {
-  background: #080808 url("../game/lang-soi-trang.png") center / cover no-repeat;
+.hso-hero {
+  position: fixed;
+  inset: 0 0 auto;
+  height: var(--canvas-offset);
+  overflow: hidden;
+  background: #0b1018;
+}
+
+.hso-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 45%;
+}
+
+.hso-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(7 12 20 / .26), transparent 24%, transparent 55%, rgb(7 12 20 / .68));
+  pointer-events: none;
 }
 
 .hso-lobby {
   position: absolute;
   inset: 0;
+  z-index: 1;
   display: flex;
   align-items: flex-end;
   max-width: var(--maxw);
@@ -63,17 +83,13 @@
   line-height: 1.5;
 }
 
-.hso-actions,
-.hso-scenes {
+.hso-actions {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   margin-top: 18px;
 }
 
-.hso-scenes[hidden],
-.hso-exit[hidden],
-#gl.mode ~ .hso-lobby,
 body.machine .hso-lobby {
   display: none;
 }
@@ -105,28 +121,6 @@ body.machine .hso-lobby {
   color: #fff;
   background: #282828;
   border-color: var(--hso-accent);
-}
-
-.hso-scenes button {
-  min-height: 40px;
-  padding: 0 8px;
-  color: #d6d0c9;
-  font-size: .8125rem;
-  border-bottom: 1px solid #57514d;
-}
-
-.hso-scenes button:hover {
-  color: var(--hso-accent);
-}
-
-.hso-exit {
-  position: absolute;
-  top: 76px;
-  right: var(--gutter);
-}
-
-.hso-touch-controls {
-  display: none;
 }
 
 .logos .hso-downloads {
@@ -172,7 +166,6 @@ body.machine .hso-lobby {
 }
 
 .hso-max-head,
-.hso-max-video,
 .hso-max-shots {
   grid-column: 1 / -1;
 }
@@ -192,14 +185,6 @@ body.machine .hso-lobby {
 
 .hso-max-head .hso-lead {
   max-width: 29rem;
-}
-
-.hso-max-video {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #080808;
-  border: 1px solid var(--line);
 }
 
 .hso-max-shots {
@@ -315,30 +300,19 @@ footer .social .hso-source {
   }
 }
 
-@media (min-width: 1280px) {
-  .hso-lobby-card {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    align-items: center;
-    column-gap: 16px;
-  }
-
-  .hso-lobby-card > p,
-  .hso-lobby-card > h1 {
-    grid-column: 1 / -1;
-  }
-
-  .hso-scenes {
-    justify-content: flex-end;
-  }
-}
-
 @media (max-width: 1199px) {
   .logos .hso-downloads { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 830px) {
   .logos .hso-downloads { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+  .hso-hero-image { height: 78%; }
+  .hso-hero::after {
+    background: linear-gradient(180deg, rgb(7 12 20 / .22), transparent 23%, transparent 47%, #0b1018 78%);
+  }
 }
 
 @media (max-width: 480px) {
@@ -349,23 +323,7 @@ footer .social .hso-source {
   .hso-gallery-controls p { order: -1; flex-basis: 100%; }
 }
 
-@media (pointer: coarse) {
-  #gl:not(.mode) { touch-action: pan-y; }
-  #hint.show { display: none; }
-  .hso-touch-controls:not([hidden]) {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    display: flex;
-    gap: 6px;
-    width: max-content;
-    max-width: calc(100% - 24px);
-    transform: translateX(-50%);
-    touch-action: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  #loader span, #topnav .led, #topnav .cur { animation: none; }
+  #topnav .led, #topnav .cur { animation: none; }
 }
