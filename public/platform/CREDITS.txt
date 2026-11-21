@@ -1,0 +1,4 @@
+Windows, Android, Apple and Java platform icons by Fonticons, Inc.
+Font Awesome Free 6.7.2 · https://github.com/FortAwesome/Font-Awesome/tree/6.7.2/svgs/brands
+License: CC BY 4.0 · https://creativecommons.org/licenses/by/4.0/
+These versions are recolored and exported as PNG. Brand marks belong to their respective owners.

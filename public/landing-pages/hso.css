@@ -130,7 +130,7 @@ body.machine .hso-lobby {
 }
 
 .logos .hso-downloads {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .hso-tile {
@@ -146,6 +146,19 @@ body.machine .hso-lobby {
   color: var(--w2);
   font-size: .9375rem;
   line-height: 1.5;
+}
+
+.hso-tile h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hso-tile h3 img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .logos .hso-tile a {
@@ -218,6 +231,35 @@ body.machine .hso-lobby {
 footer .social .hso-source {
   width: auto;
   padding: 0 12px;
+}
+
+@media (min-width: 1024px) {
+  .hso-lobby-card {
+    width: clamp(32rem, 45vw, 44rem);
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hso-lobby-card {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    column-gap: 16px;
+  }
+
+  .hso-lobby-card > p,
+  .hso-lobby-card > h1 {
+    grid-column: 1 / -1;
+  }
+
+  .hso-scenes {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 1199px) {
+  .logos .hso-downloads { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 830px) {
