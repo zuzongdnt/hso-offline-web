@@ -180,7 +180,7 @@ body.machine .hso-lobby {
 .hso-java-shots {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -348,7 +348,7 @@ footer .social .hso-source {
   .hso-lobby { padding-bottom: 20px; }
   .logos .hso-downloads { grid-template-columns: 1fr; }
   .hso-tile { gap: 10px; }
-  .hso-java-shots { gap: 6px; }
+  .hso-java-shots { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
   .hso-gallery-controls p { order: -1; flex-basis: 100%; }
 }
 
