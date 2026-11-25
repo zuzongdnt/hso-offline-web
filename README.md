@@ -21,3 +21,5 @@ Lobby có tuyết pixel, chuyển cảnh mở đầu và parallax trên desktop.
 Menu giữ nguyên tấm 3D và cách xoay của mẫu trên cả desktop lẫn điện thoại; chỉ dùng menu phẳng dự phòng khi thiếu WebGL. Thanh điều hướng và nút tải có vùng chạm tối thiểu 44px, ảnh hỗ trợ vuốt ngang, menu giữ focus và trả focus khi đóng. Chế độ giảm chuyển động luôn giữ nội dung hiển thị.
 
 Chạy `pnpm build`, `pnpm preview`, rồi `node scripts/verify-ui.cjs` với Playwright có sẵn trong môi trường (hoặc đặt `PLAYWRIGHT_MODULE` tới thư mục module). Script kiểm tra bảy kích thước từ 320px tới 1440px, menu/bàn phím, link cuộn, gallery và tùy chọn giảm chuyển động; lưu ảnh và kết quả vào `output/playwright/`. Đây là kiểm tra Chromium mô phỏng, không thay thế kiểm tra điện thoại thật.
+
+PC 37 có hai bộ cài EXE tại release `pc-click-37`: bản thường đầy đủ và bản Skin/Sea of Stars tự tải các phần dữ liệu nhỏ trong lần đầu. Các lối tắt Desktop tự khởi động Java/server kèm sẵn. Bộ cài Skin nhúng bản sửa mã ảnh shop của 91 thú cưỡi; ảnh nguồn giữ nguyên byte. Save cá nhân không được đóng gói hoặc tự chuyển từ thư mục cũ.
