@@ -13,3 +13,11 @@ Với Node.js 24 và pnpm 12, chạy `pnpm install`, rồi `pnpm dev`. Dùng `pn
 Trang dùng nguồn [SublevelStudioLandingPage](https://threeui.com/source-code/sublevel-studio-landing-page.json), revision `91db5c1bb779`. Bốn tệp gốc đã được đối chiếu SHA-256 trước khi chỉnh nội dung. Trang giữ dock, menu, màn hình thông tin CRT và các hiệu ứng nội dung của mẫu. Ảnh vùng tuyết HSO Max là nền đầu trang. Bản HTML gốc được giữ trong checkout phát triển.
 
 Module ThreeUI được ánh xạ trong Vite vì gói npm Community 1.2.0 chưa xuất component này. [Giấy phép ThreeUI](public/THREEUI-LICENSE.txt).
+
+## Hiệu ứng và giao diện điện thoại
+
+Lobby có tuyết pixel, chuyển cảnh mở đầu và parallax trên desktop. Hiệu ứng hạt áp dụng thêm cho các mục HSO Skin Mới, Java và Max; thẻ tải và ảnh có chuyển động khi xuất hiện. Tuyết dừng khi cuộn qua lobby hoặc mở menu; lớp VHS giới hạn 30 FPS và giảm độ phân giải trên thiết bị cảm ứng.
+
+Menu giữ tấm 3D trên desktop; trên điện thoại, thiết bị cảm ứng, khi giảm chuyển động hoặc thiếu WebGL, menu dùng chữ lớn và cuộn dọc. Vùng chạm chính tối thiểu 44px, ảnh hỗ trợ vuốt ngang, menu giữ focus và trả focus khi đóng. Chế độ giảm chuyển động luôn giữ nội dung hiển thị.
+
+Chạy `pnpm build`, `pnpm preview`, rồi `node scripts/verify-ui.cjs` với Playwright có sẵn trong môi trường (hoặc đặt `PLAYWRIGHT_MODULE` tới thư mục module). Script kiểm tra bảy kích thước từ 320px tới 1440px, menu/bàn phím, link cuộn, gallery và tùy chọn giảm chuyển động; lưu ảnh và kết quả vào `output/playwright/`. Đây là kiểm tra Chromium mô phỏng, không thay thế kiểm tra điện thoại thật.
