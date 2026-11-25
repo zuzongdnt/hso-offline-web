@@ -397,10 +397,6 @@ html { scrollbar-color: #685247 #0b0b0c; scrollbar-width: thin; }
 .hso-gallery-controls button:hover { background: #29221e; border-color: var(--hso-accent); }
 .hso-gallery-controls p { flex: 1; min-width: 10rem; font-variant-numeric: tabular-nums; }
 html:has(.hso-gallery[open]) { overflow: hidden; }
-.menu-close { min-height: 44px; gap: 12px; grid-auto-flow: column; }
-.menu-close span { font-size: 24px; }
-.menu-nav a { min-height: 44px; }
-.menu-foot { color: #bdb4ac; }
 .featured .card .go { min-height: 44px; width: fit-content; }
 .caps .cols { margin-top: 40px; }
 footer .social a { min-height: 44px; }
@@ -439,23 +435,6 @@ html:not(.hso-paper-menu) .menu-ill { width: 112px; top: 20px; right: 20px; opac
   .hso-max-head > * { min-width: 0; }
   .hso-max-head .hso-lead { max-width: 65ch; }
   footer { margin-top: 64px; }
-}
-
-@media (max-width: 767px), (hover: none), (prefers-reduced-motion: reduce) {
-  .menu { touch-action: pan-y; }
-  .menu #paper-stage { display: none; }
-  .menu-links {
-    inset: max(76px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
-    width: min(560px, calc(100% - 32px)); height: auto; margin: auto; padding: 24px;
-    border: 1px solid #5a5048; border-radius: 8px; background: rgb(17 16 15 / .97);
-    opacity: 1 !important; transform: none !important; visibility: visible !important;
-    overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y;
-  }
-  .menu-nav { margin: 64px 0 24px; gap: 4px; align-items: stretch; }
-  .menu-nav a { font-size: clamp(22px, 5vw, 28px); padding: 8px 18px; }
-  .menu-ill { width: 112px; top: 20px; right: 20px; opacity: .3; }
-  .menu-close { top: max(16px, env(safe-area-inset-top)); left: 16px; }
-  body.menu-open #layout { visibility: visible; }
 }
 
 @media (max-width: 767px) {

@@ -32,12 +32,7 @@ const output = 'output/playwright';
       assert.equal(await frame.locator('.menu-close').evaluate(el => el === document.activeElement), true);
       assert.equal(await frame.locator('#layout').evaluate(el => el.inert), true);
       assert.equal(await frame.locator('.hso-atmosphere').getAttribute('data-animation-active'), 'false');
-      if (touch) {
-        for (const link of await frame.locator('.menu-nav a').all()) {
-          const box = await link.boundingBox();
-          assert(box.width > 180 && box.height >= 44, `menu target at ${width}`);
-        }
-      }
+      assert.match(await frame.locator('.menu-links').evaluate(el => getComputedStyle(el).transform), /^matrix3d\(/, `original 3D menu at ${width}`);
       await page.screenshot({ path: `${output}/menu-${width}.png` });
       await frame.locator('.menu-close').press('Shift+Tab');
       assert.equal(await frame.locator('.menu-nav a').last().evaluate(el => el === document.activeElement), true);
@@ -92,7 +87,8 @@ const output = 'output/playwright';
     assert.equal(await frame.locator('#ps-output').count(), 0);
     await frame.locator('.burger').click();
     await frame.locator('.menu.open').waitFor();
-    assert.equal(await frame.locator('.menu-links').evaluate(el => getComputedStyle(el).transform), 'none');
+    await page.waitForTimeout(1000);
+    assert.match(await frame.locator('.menu-links').evaluate(el => getComputedStyle(el).transform), /^matrix3d\(/);
     await frame.locator('.menu-close').press('Escape');
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await frame.locator('#ps-output').waitFor({ state: 'attached' });
