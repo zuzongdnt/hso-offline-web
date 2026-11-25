@@ -4,7 +4,7 @@ Trang giới thiệu HSO Offline của Zuzong. Link tải dẫn đến [bản ph
 
 ## Chạy trên máy
 
-Mục **HSO Skin Mới V4** là bản Android riêng dựa trên 37, có nút tải và bốn ảnh PNG chụp trực tiếp từ bản QA V4. APK được phát hành riêng tại [skin-moi-37-v4](https://github.com/zuzongdnt/hso-offline-tools/releases/tag/skin-moi-37-v4), giữ các liên kết bản 37 thường. Cài đè HSO SOS37HD V1–V3 để giữ save của cùng ứng dụng.
+Mục **HSO Skin Mới V5** là bản Android riêng dựa trên 37, thêm shop Pháp trận với 23 món, sửa phân biệt từng hoạt ảnh và bỏ ảnh skin hiện thêm phía dưới shop. APK phát hành riêng tại [skin-moi-37-v5](https://github.com/zuzongdnt/hso-offline-tools/releases/tag/skin-moi-37-v5), giữ các liên kết bản 37 thường. Cài đè HSO SOS37HD V1–V4 để giữ save. Gói web nén không mất dữ liệu một số khung hình hoạt ảnh để dưới giới hạn phát hành; pixel RGBA, độ phân giải, mã game và danh mục trùng V5 gốc.
 
 Với Node.js 24 và pnpm 12, chạy `pnpm install`, rồi `pnpm dev`. Dùng `pnpm build` để xuất thư mục `dist`. GitHub Actions phát hành thư mục này lên GitHub Pages khi đẩy thay đổi lên `main`.
 
